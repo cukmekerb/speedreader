@@ -17,10 +17,28 @@
     -->
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <script src="https://cdn.jsdelivr.net/gh/cukmekerb/keymaster/keymaster.min.js"></script>
     <script>
         var words = [];
         var currentw = 0;
+        var paused = false;
         var currentinterval;
+        var pauselengths;
+        var pauseatcomma;
+        var pauseatdot;
+        key("space", () => {
+            paused = !paused;
+            if (!paused) {
+                document.getElementById("oph2").scrollIntoView();
+            }
+        });
+        window.addEventListener('keydown', function (e) {
+            if (e.keyCode == 32 && e.target == document.body) {
+                e.preventDefault();
+            }
+        });
         function vroom() {
             document.getElementById("oph2").scrollIntoView();
             words = document.getElementById("area").value.split(/\n|\s|-|—/);
@@ -28,39 +46,115 @@
             speed = 60 / speed * 1000;
             currentw = 0;
             if (currentinterval) {
-                clearInterval(currentinterval);
+                clearTimeout(currentinterval);
             }
             words.filter(function (val) { return val !== null; }).join(", ")
             document.getElementById("oph2").innerHTML = words[0];
+            paused = false;
             setTimeout(() => { beginflashes(speed) }, 300);
         }
         function beginflashes(speed) {
-            currentinterval = setInterval(() => {
+            var nspeed = speed;
+            if (!paused) {
                 if (currentw == words.length) {
-                    clearInterval(currentinterval);
+                    clearTimeout(currentinterval);
                     currentinterval = null;
                     currentw = 0;
                     document.getElementById('signup').scrollIntoView();
                     return
                 }
                 document.getElementById("oph2").innerHTML = words[currentw];
+                if (pauseatdot && words[currentw].match(/\.$|\。$/)) {
+                    nspeed += pauselengths.dot * 1000;
+                }
+                if (pauseatcomma && words[currentw].match(/\,$/)) {
+                    nspeed += pauselengths.comma * 1000;
+                }
                 currentw++;
-            }, speed);
+            }
+            currentinterval = setTimeout(() => {
+                beginflashes(speed, pauseatdot, pauseatcomma);
+            }, nspeed);
+        }
+        function showadv() {
+            document.getElementById("advanceds").classList.remove("hidden");
+            document.getElementById("advanced").innerHTML = "less";
+            document.getElementById("advanced").setAttribute("onclick", "hidedadv()");
+        }
+        function hidedadv() {
+            document.getElementById("advanceds").classList.add("hidden");
+            document.getElementById("advanced").innerHTML = "more";
+            document.getElementById("advanced").setAttribute("onclick", "showadv()");
+        }
+        function updatepauselen() {
+            pauselengths = {
+                comma: Number(document.getElementById("comma_pause_len").value),
+                dot: Number(document.getElementById("dot_pause_len").value)
+            }
+            pauseatcomma = document.getElementById("pauseatcomma").checked;
+            pauseatdot = document.getElementById("pauseatdot").checked;
+            if (pauseatcomma) {
+                document.getElementById("comma_div").classList.remove("fhidden");
+            }
+            else {
+                document.getElementById("comma_div").classList.add("fhidden");
+            }
+            if (pauseatdot) {
+                document.getElementById("dot_div").classList.remove("fhidden");
+            }
+            else {
+                document.getElementById("dot_div").classList.add("fhidden");
+            }
+        }
+        function init() {
+            updatepauselen();
+            document.getElementById('signup').scrollIntoView();
         }
     </script>
 </head>
 
-<body onload="document.getElementById('signup').scrollIntoView();"
-    onblur="document.getElementById('signup').scrollIntoView();">
+<body onload="init();">
     <h1 id="signup">SpeedReader</h1>
     <br>
     <p style="width: 100%; text-align: center; font-family:sans-serif; font-size: 20px; margin-top: -50px;">Read without
-        moving your eyes</p><input placeholder="WPM" id="wpm" type="number" min="60" max="1000000" value="450">
+        moving your eyes</p><input placeholder="WPM" id="wpm" type="number" min="60" max="1000000" value="450"
+        class="centerinput">
+    <i id="advanced" onclick="showadv()">more</i>
+    <div id="advanceds" class="hidden center">
+        <div class="pretty p-icon p-curve p-thick p-smooth">
+            <input type="checkbox" id="pauseatdot" checked oninput="updatepauselen()">
+            <div class="state p-success">
+                <i class="icon fas fa-check"></i>
+                <label>Pause at end of sentence</label>
+            </div>
+        </div>
+
+        <div class="pretty p-icon p-curve p-thick p-smooth">
+            <input type="checkbox" id="pauseatcomma" oninput="updatepauselen()">
+            <div class="state p-success">
+                <i class="icon fas fa-check"></i>
+                <label>Pause after comma</label>
+            </div>
+        </div>
+        <br>
+        <div id="dot_div">
+            Pause for <input id="dot_pause_len" value="0.4" step="any" min="0.05" max="10" oninput="updatepauselen()">
+            seconds after a sentence
+        </div>
+        <br>
+        <div id="comma_div">
+            Pause for <input id="comma_pause_len" value="0.1" step="any" min="0.05" max="10" oninput="updatepauselen()">
+            seconds after a comma
+        </div>
+        <i>Press space to pause</i>
+    </div>
     <textarea id="area" placeholder="Paste your text here" noresize></textarea>
     <div class="openbutton" onclick="vroom()"><span>Read Fast</span></div>
     <div id="output">
         <h2 id="oph2"></h2>
     </div>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-601f8a3551eaef37"></script>
 </body>
 
 </html>

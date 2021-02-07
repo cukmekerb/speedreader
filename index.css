@@ -5,6 +5,7 @@ html {
     height: 100%;
     --input-width: 80px;
     --area-height: 230px;
+    font-family: sans-serif;
 }
 
 *::-webkit-scrollbar {
@@ -14,6 +15,7 @@ html {
 * {
     scrollbar-width: none;
     overflow: -moz-scrollbars-none !important;
+    transition: 0.3s;
 }
 
 .center {
@@ -210,16 +212,51 @@ input {
     font-size: 20px;
     transition: 0.3s;
     width: var(--input-width);
-    margin-left: calc(50% - calc(var(--input-width) / 2));
-    margin-right: calc(50% - calc(var(--input-width) / 2));
-    text-align: center;
     -moz-appearance: textfield;
     margin-bottom: 10px;
+    display: inline;
+}
+.pretty{
+    margin-bottom: 15px;
+}
+.centerinput {
+
+    margin-left: calc(50% - calc(var(--input-width) / 2));
+    text-align: center;
+}
+.hidden{
+    opacity: 0;
+    transform: scaleY(0);
+    margin-top: -120px;
+    pointer-events: none;
+}
+#advanceds{
+    transition: 0.5s;
+    margin-bottom: 10px;
+}
+#advanced {
+    font-size: 15px;
+    transition: 0.3s;
+    transform: translate(0,9px);
+    font-family: sans-serif;
+    color: white;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#advanced:hover{
+    color: #3c84d6;
+}
+
+.fhidden{
+    opacity: 0;
 }
 
 textarea {
     background: transparent;
     resize: none;
+    padding-left: 12px;
+    padding-top: 10px;
     display: block;
     width: var(--area-width);
     margin-left: calc(50% - calc(var(--area-width) / 2));
