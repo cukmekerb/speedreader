@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,16 +9,36 @@
     <title>SpeedReader</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300&display=swap" rel="stylesheet">
+    <script>
+        var words = [];
+        var currentw = 0;
+        function vroom() {
+            document.getElementById("oph2").scrollIntoView();
+            words = document.getElementById("area").value.split(" ");
+            var speed = Number(document.getElementById("wpm").value);
+            speed = 60/speed * 1000;
+            currentw = 0;
+            setTimeout(() => {beginflashes(speed)}, 300);
+        }
+        function beginflashes(speed){
+            setInterval(() => {
+                document.getElementById("oph2").innerHTML = words[currentw]
+                currentw++;
+            }, speed);
+        }
+    </script>
 </head>
+
 <body>
     <h1 id="signup">SpeedReader</h1>
     <br>
-    <p style="width: 100%; text-align: center; font-family:sans-serif; font-size: 20px; margin-top: -50px;">Read without opening your eyes</p>
-    <span class="spnn"></span> <input placeholder="WPM" onkeypress="checkinput(event)"
-        id="urlin"><span class="spnn"></span>
+    <p style="width: 100%; text-align: center; font-family:sans-serif; font-size: 20px; margin-top: -50px;">Read without
+        opening your eyes</p><input placeholder="WPM" id="wpm" type="number" min="60" max="1000000" value="450">
+    <textarea id="area"></textarea>
     <div class="openbutton" onclick="vroom()"><span>VROOM VROOM </span></div>
-    <div id="output"></div>
-    <br><br>
-    <h2 id="over500">AAAA</h2>
+    <div id="output">
+        <h2 id="oph2">aaaa</h2>
+    </div>
 </body>
+
 </html>
