@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <script src="https://cdn.jsdelivr.net/gh/cukmekerb/keymaster/keymaster.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
     <script>
         var words = [];
         var currentw = 0;
@@ -44,8 +45,8 @@
             if (currentinterval) {
                 clearTimeout(currentinterval);
             }
-            words.filter(function (val) { return val !== null; }).join(", ")
-            document.getElementById("oph2").innerHTML = words[0];
+            words = words.filter(function (val) { return val !== null && val != "" && val != "\n"; })
+            document.getElementById("oph2").innerText = words[0];
             paused = false;
             setTimeout(() => { beginflashes(speed) }, 300);
         }
@@ -59,7 +60,7 @@
                     document.getElementById('signup').scrollIntoView();
                     return
                 }
-                document.getElementById("oph2").innerHTML = words[currentw];
+                document.getElementById("oph2").innerText = words[currentw];
                 if (pauseatdot && words[currentw].match(/\.$|\。$/)) {
                     nspeed += pauselengths.dot * 1000;
                 }
@@ -101,10 +102,26 @@
             else {
                 document.getElementById("dot_div").classList.add("fhidden");
             }
+            var settings = {
+                dotpause: pauseatdot,
+                commapause: pauseatcomma,
+                wpm: Number(document.getElementById("wpm").value),
+                dpl: pauselengths.dot,
+                cpl: pauselengths.comma
+            }
+            Cookies.set("settings", JSON.stringify(settings), {expires: 100000});
         }
         function init() {
-            updatepauselen();
             document.getElementById('signup').scrollIntoView();
+            if (Cookies.get("settings")) {
+                settings = JSON.parse(Cookies.get("settings"));
+                document.getElementById("pauseatdot").checked = settings.dotpause;
+                document.getElementById("pauseatcomma").checked = settings.commapause;
+                document.getElementById("wpm").value = settings.wpm;
+                document.getElementById("dot_pause_len").value = settings.dpl;
+                document.getElementById("comma_pause_len").value = settings.cpl;
+            }
+            updatepauselen();
         }
     </script>
 </head>

@@ -71,8 +71,8 @@ h2 {
 
 @media (max-width: 949px) {
     html {
-    --area-width: calc(100% - 10px);
-    zoom: 0.8;
+        --area-width: calc(100% - 10px);
+        zoom: 0.8;
     }
     #signup {
         text-align: center;
@@ -94,10 +94,12 @@ h1 {
 .nonono {
     animation: nonono 0.35s ease-in-out;
 }
+
 #output {
     padding-top: 35%;
     padding-bottom: 35%;
 }
+
 #subbed {
     color: rgb(62, 253, 62);
     text-align: center;
@@ -216,39 +218,47 @@ input {
     margin-bottom: 10px;
     display: inline;
 }
-.pretty{
+
+.pretty {
     margin-bottom: 15px;
 }
-.centerinput {
 
+.centerinput {
     margin-left: calc(50% - calc(var(--input-width) / 2));
     text-align: center;
 }
-.hidden{
+
+.hidden {
     opacity: 0;
     transform: scaleY(0);
-    margin-top: -150px;
+    max-height: 0;
     pointer-events: none;
 }
-#advanceds{
-    transition: 0.5s;
+
+#advanceds {
     margin-bottom: 10px;
+    transition: max-height 2s ease-out, transform 0.3s, opacity 0.5s;
 }
+
+#advanceds:not(.hidden) {
+    max-height: 500px;
+}
+
 #advanced {
     font-size: 15px;
     transition: 0.3s;
-    transform: translate(0,9px);
+    transform: translate(0, 9px);
     font-family: sans-serif;
     color: white;
     display: inline-block;
     cursor: pointer;
 }
 
-#advanced:hover{
+#advanced:hover {
     color: #3c84d6;
 }
 
-.fhidden{
+.fhidden {
     opacity: 0;
 }
 
