@@ -12,24 +12,36 @@
     <script>
         var words = [];
         var currentw = 0;
+        var currentinterval;
         function vroom() {
             document.getElementById("oph2").scrollIntoView();
-            words = document.getElementById("area").value.split(" ");
+            words = document.getElementById("area").value.split(/\n|\s|-|—/);
             var speed = Number(document.getElementById("wpm").value);
             speed = 60/speed * 1000;
             currentw = 0;
+            if(currentinterval){
+                clearInterval(currentinterval);
+            }
+            words.filter(function(val) { return val !== null; }).join(", ")
+            document.getElementById("oph2").innerHTML = words[0];
             setTimeout(() => {beginflashes(speed)}, 300);
         }
         function beginflashes(speed){
-            setInterval(() => {
-                document.getElementById("oph2").innerHTML = words[currentw]
+            currentinterval = setInterval(() => {
+                if(currentw == words.length){
+                    clearInterval(currentinterval);
+                    currentinterval = null;
+                    currentw = 0;
+                    return
+                }
+                document.getElementById("oph2").innerHTML = words[currentw];
                 currentw++;
             }, speed);
         }
     </script>
 </head>
 
-<body>
+<body onload="document.getElementById('signup').scrollIntoView();" onblur="document.getElementById('signup').scrollIntoView();">
     <h1 id="signup">SpeedReader</h1>
     <br>
     <p style="width: 100%; text-align: center; font-family:sans-serif; font-size: 20px; margin-top: -50px;">Read without
@@ -37,7 +49,7 @@
     <textarea id="area"></textarea>
     <div class="openbutton" onclick="vroom()"><span>VROOM VROOM </span></div>
     <div id="output">
-        <h2 id="oph2">aaaa</h2>
+        <h2 id="oph2"></h2>
     </div>
 </body>
 
