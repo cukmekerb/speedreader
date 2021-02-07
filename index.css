@@ -69,7 +69,8 @@ h2 {
 
 @media (max-width: 949px) {
     html {
-    --area-width: calc(100% - 20px);
+    --area-width: calc(100% - 10px);
+    zoom: 0.8;
     }
     #signup {
         text-align: center;
@@ -207,11 +208,10 @@ input {
     border-bottom: 1px solid rgb(185, 185, 185);
     color: white;
     font-size: 20px;
-    margin-left: auto;
-    margin-right: auto;
     transition: 0.3s;
     width: var(--input-width);
     margin-left: calc(50% - calc(var(--input-width) / 2));
+    margin-right: calc(50% - calc(var(--input-width) / 2));
     text-align: center;
     -moz-appearance: textfield;
     margin-bottom: 10px;
@@ -219,9 +219,11 @@ input {
 
 textarea {
     background: transparent;
+    resize: none;
     display: block;
     width: var(--area-width);
     margin-left: calc(50% - calc(var(--area-width) / 2));
+    margin-right: calc(50% - calc(var(--area-width) / 2));
     margin-bottom: 10px;
     height: var(--area-height);
     transition: 0.3s;

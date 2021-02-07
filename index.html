@@ -5,8 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="English">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,height=device-height">
     <title>SpeedReader</title>
+    <!--
+        ## TODO ##
+
+        Make icons and such
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" rel="preload">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    -->
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300&display=swap" rel="stylesheet">
     <script>
@@ -17,21 +25,22 @@
             document.getElementById("oph2").scrollIntoView();
             words = document.getElementById("area").value.split(/\n|\s|-|—/);
             var speed = Number(document.getElementById("wpm").value);
-            speed = 60/speed * 1000;
+            speed = 60 / speed * 1000;
             currentw = 0;
-            if(currentinterval){
+            if (currentinterval) {
                 clearInterval(currentinterval);
             }
-            words.filter(function(val) { return val !== null; }).join(", ")
+            words.filter(function (val) { return val !== null; }).join(", ")
             document.getElementById("oph2").innerHTML = words[0];
-            setTimeout(() => {beginflashes(speed)}, 300);
+            setTimeout(() => { beginflashes(speed) }, 300);
         }
-        function beginflashes(speed){
+        function beginflashes(speed) {
             currentinterval = setInterval(() => {
-                if(currentw == words.length){
+                if (currentw == words.length) {
                     clearInterval(currentinterval);
                     currentinterval = null;
                     currentw = 0;
+                    document.getElementById('signup').scrollIntoView();
                     return
                 }
                 document.getElementById("oph2").innerHTML = words[currentw];
@@ -41,13 +50,14 @@
     </script>
 </head>
 
-<body onload="document.getElementById('signup').scrollIntoView();" onblur="document.getElementById('signup').scrollIntoView();">
+<body onload="document.getElementById('signup').scrollIntoView();"
+    onblur="document.getElementById('signup').scrollIntoView();">
     <h1 id="signup">SpeedReader</h1>
     <br>
     <p style="width: 100%; text-align: center; font-family:sans-serif; font-size: 20px; margin-top: -50px;">Read without
         moving your eyes</p><input placeholder="WPM" id="wpm" type="number" min="60" max="1000000" value="450">
-    <textarea id="area" placeholder="Paste your text here"></textarea>
-    <div class="openbutton" onclick="vroom()"><span>VROOM VROOM </span></div>
+    <textarea id="area" placeholder="Paste your text here" noresize></textarea>
+    <div class="openbutton" onclick="vroom()"><span>Read Fast</span></div>
     <div id="output">
         <h2 id="oph2"></h2>
     </div>
