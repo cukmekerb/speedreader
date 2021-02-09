@@ -25,30 +25,48 @@
         var pauselengths;
         var pauseatcomma;
         var pauseatdot;
+        // keymaster custom filter:
+        key.filter = (event) => {
+            var tagName = (event.target || event.srcElement).tagName;
+            console.log(event.srcElement)
+            return (!(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA')) || (key.isPressed("command") && key.isPressed("enter")) || (key.isPressed("ctrl") && key.isPressed("enter"));
+        }
+
+        key("ctrl+enter, command+enter", () => {
+            if (!paused && currentw == 0) {
+                vroom();
+            }
+        })
+
         key("space", () => {
             paused = !paused;
             if (!paused) {
                 document.getElementById("oph2").scrollIntoView();
             }
         });
+
+        // prevent scrolling with spacebar
         window.addEventListener('keydown', function (e) {
             if (e.keyCode == 32 && e.target == document.body) {
                 e.preventDefault();
             }
         });
         function vroom() {
-            document.getElementById("oph2").scrollIntoView();
-            words = document.getElementById("area").value.split(/\n|\s|-|—/);
-            var speed = Number(document.getElementById("wpm").value);
-            speed = 60 / speed * 1000;
-            currentw = 0;
-            if (currentinterval) {
-                clearTimeout(currentinterval);
+            if (document.getElementById("area").value && document.getElementById("area").value != "") {
+                document.getElementById("oph2").scrollIntoView();
+                document.getElementById("area").blur();
+                words = document.getElementById("area").value.split(/\n|\s|-|—/);
+                var speed = Number(document.getElementById("wpm").value);
+                speed = 60 / speed * 1000;
+                currentw = 0;
+                if (currentinterval) {
+                    clearTimeout(currentinterval);
+                }
+                words = words.filter(function (val) { return val !== null && val != "" && val != "\n"; })
+                document.getElementById("oph2").innerText = words[0];
+                paused = false;
+                setTimeout(() => { beginflashes(speed) }, 300);
             }
-            words = words.filter(function (val) { return val !== null && val != "" && val != "\n"; })
-            document.getElementById("oph2").innerText = words[0];
-            paused = false;
-            setTimeout(() => { beginflashes(speed) }, 300);
         }
         function beginflashes(speed) {
             var nspeed = speed;
@@ -64,7 +82,7 @@
                 if (pauseatdot && words[currentw].match(/\.$|\。$/)) {
                     nspeed += pauselengths.dot * 1000;
                 }
-                if (pauseatcomma && words[currentw].match(/\,$/)) {
+                if (pauseatcomma && words[currentw].match(/\,$|\;$/)) {
                     nspeed += pauselengths.comma * 1000;
                 }
                 currentw++;
@@ -109,7 +127,7 @@
                 dpl: pauselengths.dot,
                 cpl: pauselengths.comma
             }
-            Cookies.set("settings", JSON.stringify(settings), {expires: 100000});
+            Cookies.set("settings", JSON.stringify(settings), { expires: 100000 });
         }
         function init() {
             document.getElementById('signup').scrollIntoView();
