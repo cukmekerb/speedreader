@@ -5,7 +5,7 @@ html {
     height: 100%;
     --input-width: 80px;
     --area-height: 230px;
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
 }
 
 *::-webkit-scrollbar {
@@ -27,7 +27,7 @@ html {
 h2 {
     text-align: center;
     width: 100%;
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
 }
 
 @media (min-width: 950px) {
@@ -37,8 +37,9 @@ h2 {
     #signup {
         text-align: center;
         width: 100%;
-        font-family: sans-serif;
+        font-family: 'DejaVu Sans', sans-serif;
         font-size: 80px;
+        font-weight: normal;
     }
     #signup>img {
         height: 150px;
@@ -58,7 +59,7 @@ h2 {
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
@@ -78,8 +79,9 @@ h2 {
         text-align: center;
         margin-top: 10%;
         width: 100%;
-        font-family: sans-serif;
+        font-family: 'DejaVu Sans', sans-serif;
         font-size: 60px;
+        font-weight: normal;
     }
     #signup>img {
         height: 130px;
@@ -87,7 +89,7 @@ h2 {
 }
 
 h1 {
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans Bold', sans-serif;
     word-wrap: break-word;
 }
 
@@ -103,19 +105,19 @@ h1 {
 #subbed {
     color: rgb(62, 253, 62);
     text-align: center;
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
 }
 
 #notsubbed {
     color: rgb(255, 74, 74);
     text-align: center;
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
 }
 
 #why {
     background-color: rgb(62, 62, 62);
     width: 100%;
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
 }
 
 a {
@@ -129,13 +131,13 @@ a {
     border-radius: 5px;
     border: 2px solid rgb(187, 183, 183);
     padding: 5px;
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
     color: rgb(43, 43, 43);
 }
 
 #itseasy {
     text-align: center;
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
     font-size: 40px;
     margin-top: 500px;
 }
@@ -248,7 +250,7 @@ input {
     font-size: 15px;
     transition: 0.3s;
     transform: translate(0, 9px);
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
     color: white;
     display: inline-block;
     cursor: pointer;
@@ -275,7 +277,7 @@ textarea {
     height: var(--area-height);
     transition: 0.3s;
     color: white;
-    font-family: sans-serif;
+    font-family: 'DejaVu Sans', sans-serif;
     font-size: 20px;
 }
 
