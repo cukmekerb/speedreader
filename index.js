@@ -62,7 +62,7 @@ function vroom() {
         words = words.filter(function (val) { return val !== null && val != "" && val != "\n"; })
         document.getElementById("oph2").innerText = words[0];
         paused = false;
-        setTimeout(() => { beginflashes(speed) }, 300);
+        setTimeout(() => { beginflashes(speed) }, 350);
     }
 }
 function beginflashes(speed) {
