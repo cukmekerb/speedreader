@@ -263,7 +263,12 @@ input {
 .fhidden {
     opacity: 0;
 }
-
+.flex {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
+}
 textarea {
     background: transparent;
     resize: none;
@@ -271,8 +276,6 @@ textarea {
     padding-top: 10px;
     display: block;
     width: var(--area-width);
-    margin-left: calc(50% - calc(var(--area-width) / 2));
-    margin-right: calc(50% - calc(var(--area-width) / 2));
     margin-bottom: 20px;
     height: var(--area-height);
     transition: 0.3s;
