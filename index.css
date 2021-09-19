@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 html {
     scroll-behavior: smooth;
     background-color: rgb(44, 44, 44);
@@ -5,7 +6,7 @@ html {
     height: 100%;
     --input-width: 80px;
     --area-height: 230px;
-    font-family: 'DejaVu Sans', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 *::-webkit-scrollbar {
@@ -27,7 +28,6 @@ html {
 h2 {
     text-align: center;
     width: 100%;
-    font-family: sans-serif;
 }
 
 @media (min-width: 950px) {
@@ -37,16 +37,15 @@ h2 {
     #signup {
         text-align: center;
         width: 100%;
-        font-family: 'DejaVu Sans', sans-serif;
         font-size: 80px;
         font-weight: normal;
     }
-    #signup>img {
+    #signup > img {
         height: 150px;
     }
 }
 
-.openbutton>span {
+.openbutton > span {
     vertical-align: middle;
     display: inline-block;
     line-height: 50px;
@@ -59,7 +58,6 @@ h2 {
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
-    font-family: 'DejaVu Sans', sans-serif;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
@@ -83,7 +81,7 @@ h2 {
         font-size: 60px;
         font-weight: normal;
     }
-    #signup>img {
+    #signup > img {
         height: 130px;
     }
 }
@@ -277,10 +275,13 @@ textarea {
     display: block;
     width: var(--area-width);
     margin-bottom: 20px;
+    font-family: 'Noto Sans', sans-serif;
     height: var(--area-height);
     transition: 0.3s;
+    border-radius: 10px;
+    border: 2px solid white;
+    outline: 0;
     color: white;
-    font-family: 'DejaVu Sans', sans-serif;
     font-size: 20px;
 }
 
